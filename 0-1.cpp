@@ -6,8 +6,6 @@ h=0.2
 */
 
 
-
-#define _USE_MATH_DEFINES
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -35,7 +33,6 @@ double Sin(double x, double eps) {
 
 int main() {
 
-	const double exp_2 = M_E * M_E;
 	double a = -1, b = 1, eps = 0.0001, h = 0.2;
 	for (double x = a;x <= b;x += h) {
 		cout << "x=";
@@ -43,10 +40,10 @@ int main() {
 		cout << x;
 		cout << "\t\tf(x)=";
 		cout.width(6);
-		cout << Exp(x,eps)*exp_2*Sin(2*x,eps);
+		cout << Exp(x+2,eps)*Sin(2*x,eps);
 		cout << "\t\tF(x)=";
 		cout.width(6);
-		cout << exp(x) * exp_2 * sin(2 * x);
+		cout << exp(x+2) * sin(2 * x);
 		cout << "\n";
 	}
 
