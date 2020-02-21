@@ -20,12 +20,12 @@ void freeMemory(int*& arr) {
 	arr = nullptr;
 
 }
-int* findMin(int *begin, int *end) {
+int* findFirstMin(int *begin, int *end) {
 	int *min = begin;
 	for (int* p = begin; p < end; ++p)if (*p < *min)min = p;
 	return min;
 }
-int* findMax(int* begin, int* end) {
+int* findFirstMax(int* begin, int* end) {
 	int* max = begin;
 	for (int* p = begin; p < end; ++p)if (*p > *max)max = p;
 	return max;
@@ -40,11 +40,12 @@ void inputArray(int* begin, int* end) {
 		++begin;
 	}
 }
-void findMaxMin(int* begin, int* end, int& min, int& max) {
+void findMaxMin(int* begin, int* end, int*& min, int*& max) {
+
 
 	for (int* p = begin; p < end; ++p) { 
-	if (*p < min)min = *p; 
-	if (*p > max)max = *p; 
+	if (*p < *min)min = p; 
+	if (*p > *max)max = p; 
 	}
 }
 int findSum(int* begin, int* end) {
@@ -83,56 +84,6 @@ int howMuch(int* begin, int* end, int n)
 	}
 	return k;
 }
-void getPositiveNegativeArray(int* begin, int* end, int& neg, int& pos) {
-
-	neg = pos = 0;
-	for (int* p = begin; p < end; ++p) {
-		if (*p > 0)++pos;
-		if (*p < 0)++neg;
-	}
-
-}
-void halfArray(int* begin, int* end, int B[], int C[])
-{
-	int i = 0;
-	int r = (end-begin) / 2;
-	for (int* p = begin; p < begin+r; ++p) { B[i] = *p;++i; }
-	i = 0;
-	for (int* p = begin + r; p < end; ++p) C[i] = *p;
-
-}
-void divArray(int* begin, int* end, int B[], int C[])
-{
-
-	for (int k = 0, j = 0,*p=begin; p < end; ++p) {
-		if (*p > 0) { B[j] =*p, j++; }
-		if (*p < 0) { C[k] =*p, k++; }
-	}
-
-}
-
-bool changeArray1(int* begin, int* end) {
-	bool flag = false;
-	const int k = 999;
-	for (int* p = begin; p < end - 1; ++p) {
-		if (*p) {*(p+1) = 999; flag = true; break; }
-	}
-	return flag;
-}
-bool changeArray2(int* begin, int* end) {
-	int* min = findMin(begin, end);
-	if (min + 1 < end - 1) {
-		*(min + 1) = 999; return true;
-	}
-	return false;
-}
-bool changeArray3(int* begin, int* end) {
-	int* max = findMax(begin, end);
-	if (max - 1 >= begin) {
-		*(max-1) = 999; return true;
-	}
-	return false;
-}
 void reverse(int* begin, int* end)
 {
 	--end;
@@ -142,12 +93,12 @@ void reverse(int* begin, int* end)
 		++begin;--end;
 	}
 }
-int* findIdLastMin(int* begin, int* end) {
+int* findLastMin(int* begin, int* end) {
 	int* min = begin;
 	for (int* p = begin; p < end ; ++p)if (*p <= *min)min = p;
 	return min;
 }
-int* findIdFirstMax(int* begin, int* end) {
+int* findFirstMax(int* begin, int* end) {
 	int* max = begin;
 	for (int* p = begin+1; p < end; ++p)if (*p >= *max)max = p;
 	return max;
