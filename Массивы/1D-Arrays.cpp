@@ -171,10 +171,10 @@ void QuickSort(int* begin, int* end) {
 	if (end - begin <= 1)return;
 	int* i = begin, * j = end - 1;
 	int half_value = *(begin + (end - begin) / 2);
-	while (i < j) {
+	while (i <= j) {
 		while (*i < half_value)++i;
 		while (*j > half_value)--j;
-		if (i < j)
+		if (i <= j)
 		{
 			swap(*i, *j);
 			++i;--j;
@@ -182,6 +182,4 @@ void QuickSort(int* begin, int* end) {
 	}
 	if (begin < j)QuickSort(begin, j + 1);
 	if (end > i)QuickSort(i, end);
-
-}
 }
