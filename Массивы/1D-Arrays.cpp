@@ -98,7 +98,7 @@ int* findLastMin(int* begin, int* end) {
 	for (int* p = begin; p < end ; ++p)if (*p <= *min)min = p;
 	return min;
 }
-int* findFirstMax(int* begin, int* end) {
+int* findLastMax(int* begin, int* end) {
 	int* max = begin;
 	for (int* p = begin+1; p < end; ++p)if (*p >= *max)max = p;
 	return max;
@@ -111,11 +111,11 @@ void sortBubble(int* begin, int* end) {
 			if (*ip > * jp)swap(*ip, *jp);
 		}
 }
-void sortbyInsertion(int* begin, int* end) {
-	for (int* ip = begin+1;ip < end;++ip)
-		for (int* jp = ip;jp>begin && *jp >*(jp-1);++jp)
+void sortByInsertion(int* begin, int* end) {
+	for (int* ip = begin + 1;ip < end;++ip)
+		for (int* jp = ip;jp > begin&&* jp < *(jp - 1);--jp)
 		{
-			swap(*(jp-1), *jp);
+			swap(*(jp - 1), *jp);
 		}
 }
 void QuickSort(int* begin, int* end) {
