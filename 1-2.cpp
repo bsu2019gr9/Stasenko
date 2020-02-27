@@ -6,7 +6,6 @@
 #include "2D-Arrays.h"
 using namespace std;
 int findColumnWithMaxSumOfELement(int** arr, int rows, int cols);
-void swapColumns(int** arr, int rows, int col1,int col2);
 void sortByFirstRow(int** arr, int rows, int cols);
 
 int main() {
@@ -30,7 +29,7 @@ int main() {
 int findColumnWithMaxSumOfELement(int** arr,int rows,int cols) {
 
 	int sum=0;
-	int col;
+	int col=0;
 	int max_sum=0;
 	for (int i = 0;i < cols;++i) {
 		for (int j = 0;j < rows;++j)
