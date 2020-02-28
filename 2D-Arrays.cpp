@@ -13,7 +13,8 @@ void initArrayByconst(int** arr, const int rows, const int cols,const int cons) 
 void initArray(int** arr, const int rows, const int cols, const int A,const int B) {
 	double k = (B - A) *1.0/ RAND_MAX;
 	for (size_t i(0);i < rows;++i)
-	{for (size_t j(0); j < cols; ++j)arr[i][j]=A+(rand())*k;}
+	{for (size_t j(0); j < cols; ++j)
+		arr[i][j]=A+(rand())*k;}
 }
 void printArray(int** arr, const int rows, const int cols ) {
 	for (size_t i(0);i < rows;++i)
@@ -91,7 +92,7 @@ void initSnakebyRows(int** arr, const int rows, const int cols ) {
 int** createArray(const int rows, const int cols) {
 	try {
 		int** arr = new int* [rows];
-		for (size_t i = 0;i < cols;++i)
+		for (size_t i = 0;i < rows;++i)
 			arr[i] = new int[cols];
 		return arr;
 	}
