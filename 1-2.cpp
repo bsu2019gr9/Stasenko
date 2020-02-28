@@ -3,7 +3,7 @@
 //а остальные столбцы расположить в порядке возрастания элементов первой строки.
 #include <iostream>
 #include <iomanip>
-#include "2D-Arrays.h"
+#include "Arrays/2D-Arrays.h"
 using namespace std;
 int findColumnWithMaxSumOfELement(int** arr, int rows, int cols);
 void sortByFirstRow(int** arr, int rows);

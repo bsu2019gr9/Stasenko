@@ -1,6 +1,6 @@
 #include <iostream>
 #include<time.h>
-#include "1D-Arrays.h"
+#include "Arrays/1D-Arrays.h"
 using namespace std;
 
 int Task1(int*, int*);//подсчитать количество элементов, встречающихся более одного раза.     
@@ -17,7 +17,7 @@ int main() {
 	cout << *findFirstMax(arr,arr+size);
 	cout << *findFirstMin(arr, arr + size);
 	cout<<Task1(arr, arr + size)<<"\n";
-	initArray(arr, arr + size,-20);
+	initArray(arr, arr + size,-20,10);
 	printArray(arr, arr + size);
 	cout<<Task2(arr, arr + size);
 	freeMemory(arr);

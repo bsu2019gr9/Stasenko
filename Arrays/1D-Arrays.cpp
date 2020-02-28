@@ -1,11 +1,11 @@
 #include <iostream>
 #include <time.h>
+#include "1D-Arrays.h"
 using namespace std;
-int* createArray(const int n=10) {
+int* createArray(const int n) {
 	int* arr;
 	try { arr = new int[n]; }
 	catch (bad_alloc) { cout << "No Memmory\n";exit(1); }
-	arr = { 0 };
 	return arr;
 }
 void freeMemory(int*& arr) {
@@ -54,7 +54,7 @@ int findSum(int* begin, int* end) {
 		s += *p;
 	return s;
 }
-void initArray(int* begin, int* end, int A = -10, int B = 10)
+void initArray(int* begin, int* end, int A , int B )
 {
 	srand(time(NULL));
 	if (A > B)swap(A, B);
