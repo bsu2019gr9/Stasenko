@@ -54,7 +54,7 @@ int main() {
 	cout << "Enter str\n";
 	cin.getline(str, size);
 	cout << "Enter substr\n";
-	cin >> substr;
+	cin.getline(substr, size);
 	cout << "Words with different letters:\n";
 	Task(str,substr);
 	cout << "New str:\n";
