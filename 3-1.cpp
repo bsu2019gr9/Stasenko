@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 void insertStr(char* dest, char src[]);
-char* mystrtok(char*& word_pos, char separator = ' ');
+char* findWord(char*& word_pos, char separator = ' ');
 void Task1(char*& str, char substr[]);
 int main() {
 
@@ -27,7 +27,7 @@ void Task1(char*& str, char substr[]) {
 	const int N = 26;
 	bool letters[N] = { 0 };// для всех букв в алфавите
 	char* word_pos = str;//указатель на слово
-	char* word = mystrtok(word_pos);
+	char* word = findWord(word_pos);
 	while (word) {
 		int i = 0;
 		//проверка,являются ли все буквы разными
@@ -45,12 +45,12 @@ void Task1(char*& str, char substr[]) {
 		}
 		for (size_t i = 0; i < N; i++)letters[i] = 0;
 		word_pos += strlen(word) + 1;
-		word = mystrtok(word_pos);
+		word = findWord(word_pos);
 
 	}
 }
-char* mystrtok(char*& word_pos, char separator) {
-	/*стрток ищет первое слово,пропуская разделители,
+char* findWord(char*& word_pos, char separator) {
+	/* ищет первое слово,пропуская разделители,
 	запоминает начало слова,идет дальше,пока не найдет разделитель,
 	копирует данное слово в отдельную память и возвращает указатель на эту память
 	*/
