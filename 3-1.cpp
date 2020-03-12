@@ -8,8 +8,16 @@ void Task1(char*& str, char substr[]);
 int main() {
 
 	int size = 10000;
-	char* substr=new char [size];
-	char* str=new char[size];
+	char* substr = nullptr;
+	char* str = nullptr;
+	try {
+		 substr = new char[size];
+		 str = new char[size];
+	}
+	catch (bad_alloc) {
+		cout << "No mem";
+		exit(1);
+	}
 	for (int i(0); i < size; ++i)
 		str[i] = 0;
 	cout << "Enter str\n";
@@ -20,8 +28,8 @@ int main() {
 	Task1(str,substr);
 	cout << "New str:\n";
 	cout << str << "\n";
-
-
+	delete[] substr;
+	delete[] str;
 }
 void Task1(char*& str, char substr[]) {
 	const int N = 26;
@@ -45,6 +53,7 @@ void Task1(char*& str, char substr[]) {
 		}
 		for (size_t i = 0; i < N; i++)letters[i] = 0;
 		word_pos += strlen(word) + 1;
+		delete[] word;
 		word = findWord(word_pos);
 
 	}
@@ -69,7 +78,7 @@ char* findWord(char*& word_pos, char separator) {
 }
 void insertStr(char* dest, char src[]) {
 	int size_src = strlen(src);
-	for (int i = strlen(dest); i >= 0; --i)//сдвиг на n символов
+	for (int i = strlen(dest); i >= 0; --i)//сдвиг на n символов  
 		dest[i + size_src + 1] = dest[i];
 	strcpy(dest, src);
 }
