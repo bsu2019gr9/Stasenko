@@ -1,84 +1,57 @@
 //(8-9)Найти и вывести на экран все слова строки, 
 //в которых все буквы различны. Вставить перед такими словами заданную подстроку.
 #include <iostream>
+#include <fstream>
+
 using namespace std;
-void insertStr(char* dest, char src[]);
-char* findWord(char*& word_pos, char separator = ' ');
-void Task1(char*& str, char substr[]);
+void Task(char*& str, char substr[]);
 int main() {
 
-	int size = 10000;
+	int size = 100000;
 	char* substr = nullptr;
 	char* str = nullptr;
-	try {
-		 substr = new char[size];
-		 str = new char[size];
-	}
-	catch (bad_alloc) {
-		cout << "No mem";
-		exit(1);
-	}
-	for (int i(0); i < size; ++i)
-		str[i] = 0;
-	cout << "Enter str\n";
-	cin.getline(str, size);
+	substr = new(nothrow) char[size];
+	str = new(nothrow) char[size];
+	for (int i(0); i < size; ++i)str[i] = 0;
 	cout << "Enter substr\n";
 	cin.getline(substr, size);
+	cout << "Enter Str\n";
+	cin.getline(str, size);
 	cout << "Words with different letters:\n";
-	Task1(str,substr);
+	Task(str,substr);
 	cout << "New str:\n";
 	cout << str << "\n";
 	delete[] substr;
 	delete[] str;
 }
-void Task1(char*& str, char substr[]) {
+void Task(char*& str, char substr[]) {
+	if (strlen(str) < 2)return;
 	const int N = 26;
-	bool letters[N] = { 0 };// для всех букв в алфавите
-	char* word_pos = str;//указатель на слово
-	char* word = findWord(word_pos);
+	int MAX_SIZE= 10 * strlen(str);
+	bool letters[N] = { 0 };
+	char* res = new(nothrow) char[MAX_SIZE];
+	for (int i(0); i < MAX_SIZE; ++i)res[i] = 0;
+	char* word = nullptr;
+	word = strtok(str, " ");
 	while (word) {
 		int i = 0;
-		//проверка,являются ли все буквы разными
 		while (word[i]) {
+			//проверка все ли буквы в слове разные
 			if (letters[word[i] - 'a'])  break;
 			letters[word[i] - 'a'] = true;
 			++i;
 		}
 		if (i == strlen(word)) {
 			cout << word << "\n";
-			insertStr(word_pos, substr);
-			word_pos[strlen(word_pos)] = ' ';
-			word_pos += strlen(substr) + 1;//после вставки указатель указывает на вставленное слово
-										//возвращаем его обратно на слово с разными буквами									
+			strcat(res, substr);
+			res[strlen(res)] = ' ';
 		}
+		strcat(res, word);
+		res[strlen(res)] = ' ';
 		for (size_t i = 0; i < N; i++)letters[i] = 0;
-		word_pos += strlen(word) + 1;
-		delete[] word;
-		word = findWord(word_pos);
-
+		word = strtok(NULL, " ");
 	}
-}
-char* findWord(char*& word_pos, char separator) {
-	/* ищет первое слово,пропуская разделители,
-	запоминает начало слова,идет дальше,пока не найдет разделитель,
-	копирует данное слово в отдельную память и возвращает указатель на эту память
-	*/
-	char* word = nullptr;
-	char* p = word_pos;
-	if (strlen(word_pos) < 1) {
-		word_pos = nullptr; return nullptr;
-	}
-	while (*p && *p == separator)++p;
-	word_pos = p;
-	while (*p && *p != separator)++p;
-	word = new char[p - word_pos + 1];
-	strncpy(word, word_pos, p - word_pos);
-	word[p - word_pos] = 0;
-	return word;
-}
-void insertStr(char* dest, char src[]) {
-	int size_src = strlen(src);
-	for (int i = strlen(dest); i >= 0; --i)//сдвиг на n символов  
-		dest[i + size_src + 1] = dest[i];
-	strcpy(dest, src);
+	res[strlen(res)] = 0;
+	delete[] str;
+	str = res;
 }
