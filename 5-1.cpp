@@ -38,8 +38,6 @@ public:
 
 };
 
-//----ðåàëèçàöèÿ---
-
 
 QuadraticEquation::QuadraticEquation(double arg_a, double arg_b, double arg_c) :
 	a(arg_a), b(arg_b), c(arg_c), solution(nullptr), numOfSolution(0)
