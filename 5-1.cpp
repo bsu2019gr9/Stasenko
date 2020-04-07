@@ -59,10 +59,11 @@ QuadraticEquation::QuadraticEquation(double arg_a, double arg_b, double arg_c) :
 QuadraticEquation::QuadraticEquation(const QuadraticEquation & qe) {
 	*this = qe;
 }
-void QuadraticEquation::operator=(const QuadraticEquation & qe) {
+QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	a = qe.a;
 	b = qe.b;
 	c = qe.c;
+	if(solution)delete[] solution;
 	solution = new double[qe.numOfSolution];
 	numOfSolution = qe.numOfSolution;
 	if (numOfSolution == 2) {
