@@ -1,4 +1,4 @@
-#pragma once
+//Класс квадратные уравнения. Хранить коэффициенты и корни.
 #include <iostream>
 #include <cmath>
 using namespace std;
