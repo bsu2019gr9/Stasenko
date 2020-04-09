@@ -67,7 +67,7 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	b = qe.b;
 	c = qe.c;
 	size = qe.size;
-	if (size == 2) {
+	if (size == 2) {//зачем if  почему просто не скопировать.... размер то уже знаем...
 		solution[0] = qe.solution[0];
 		solution[1] = qe.solution[1];
 	}
@@ -79,10 +79,10 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 }
 QuadraticEquation::~QuadraticEquation() {}
 QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) {
-	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);
+	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);//а вдруг получим новое а=0 
 }
 QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation & qe) {
-	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);
+	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);//а вдруг получим новое а=0 
 }
 void QuadraticEquation::setA(double a) {
 	if (a)this->a = a;
@@ -148,7 +148,7 @@ int main() {
 	double* sol = qe1.getSolution();
 	int n = qe1.getNumberOfSolutions();
 	for (int i = 0;i < n;i++)
-			cout << sol[i];
+			cout << sol[i];  //вот это бы в функцию fff
 	sol = qe6.getSolution();
 	cin >> qe1;
 	cout << fff1(qe1);
