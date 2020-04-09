@@ -13,7 +13,7 @@ private:
 public:
 	QuadraticEquation(double arg_a = 0, double arg_b = 0, double arg_c = 0);
 	QuadraticEquation(const QuadraticEquation& qe);
-	void operator=(const QuadraticEquation& qe);
+	QuadraticEquation& operator=(const QuadraticEquation& qe);
 	~QuadraticEquation();
 	friend ostream& operator<<(ostream& out, const QuadraticEquation& qe) {
 		out << qe.a << "x^2+" << qe.b << "x+" << qe.c<<"\n";
@@ -63,9 +63,10 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	a = qe.a;
 	b = qe.b;
 	c = qe.c;
-	if(solution)delete[] solution;
-	solution = new double[qe.numOfSolution];
+	if(numOfSolution==2)delete[] solution;
+	else if(numOfSolution==1)delete solution;
 	numOfSolution = qe.numOfSolution;
+	if(numOfSolution)solution = new double[numOfSolution];
 	if (numOfSolution == 2) {
 		solution[0] = qe.solution[0];
 		solution[1] = qe.solution[1];
@@ -78,7 +79,8 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	
 }
 QuadraticEquation::~QuadraticEquation() {
-	if (solution)delete[] solution;
+	if (numOfSolution==2)delete[] solution;
+	else if (numOfSolution==1)delete solution;
 	solution = nullptr;
 }
 QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) {

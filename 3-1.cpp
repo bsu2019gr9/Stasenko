@@ -1,5 +1,6 @@
 //(8-9)Найти и вывести на экран все слова строки, 
 //в которых все буквы различны. Вставить перед такими словами заданную подстроку.
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 
@@ -44,14 +45,14 @@ void Task(char*& str, char substr[]) {
 		if (i == strlen(word)) {
 			cout << word << "\n";
 			strcat(res, substr);
-			res[strlen(res)] = ' ';
+			strcat(res, " ");
 		}
 		strcat(res, word);
-		res[strlen(res)] = ' ';
+		strcat(res, " ");
 		for (size_t i = 0; i < N; i++)letters[i] = 0;
 		word = strtok(NULL, " ");
 	}
-	res[strlen(res)] = 0;
+
 	delete[] str;
 	str = res;
 }
