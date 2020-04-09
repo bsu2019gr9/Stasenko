@@ -67,22 +67,17 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	b = qe.b;
 	c = qe.c;
 	size = qe.size;
-	if (size == 2) {//зачем if  почему просто не скопировать.... размер то уже знаем...
-		solution[0] = qe.solution[0];
-		solution[1] = qe.solution[1];
-	}
-	else if (size == 1)
-	{
-		solution[0] = qe.solution[0];
-	}
-
+	solution[0] = qe.solution[0];
+	solution[1] = qe.solution[1];
 }
 QuadraticEquation::~QuadraticEquation() {}
 QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) {
-	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);//а вдруг получим новое а=0 
+	if (!(a + qe.a)) throw "Sum of quadratic equation is not quadratic equation";
+	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);
 }
 QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation & qe) {
-	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);//а вдруг получим новое а=0 
+	if (!(a - qe.a)) throw "Difference of quadratic equation is not quadratic equation";
+	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);
 }
 void QuadraticEquation::setA(double a) {
 	if (a)this->a = a;
