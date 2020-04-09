@@ -8,10 +8,11 @@ private:
 	double a;
 	double b;
 	double c;
-	double* solution;
-	size_t numOfSolution;
+	size_t size;
+	double solution[2];
+	void solveEquation(double a, double b, double c);
 public:
-	QuadraticEquation(double arg_a = 0, double arg_b = 0, double arg_c = 0);
+	QuadraticEquation(double arg_a , double arg_b = 0, double arg_c = 0);
 	QuadraticEquation(const QuadraticEquation& qe);
 	QuadraticEquation& operator=(const QuadraticEquation& qe);
 	~QuadraticEquation();
@@ -38,23 +39,25 @@ public:
 
 };
 
-
-QuadraticEquation::QuadraticEquation(double arg_a, double arg_b, double arg_c) :
-	a(arg_a), b(arg_b), c(arg_c), solution(nullptr), numOfSolution(0)
-{
+void QuadraticEquation::solveEquation(double a, double b, double c) {
 	double D = b * b - 4 * a * c;
 	if (D > 0) {
-		solution = new double[2];
 		solution[0] = (-b + sqrt(D)) / (2 * a);
 		solution[1] = (-b - sqrt(D)) / (2 * a);
-		numOfSolution = 2;
+		size = 2;
 
 	}
 	else if (D == 0) {
-		solution = new double;
-		*solution = -b / (2 * a);
-		numOfSolution = 1;
+		solution[0] = -b / (2 * a);
+		size = 1;
 	}
+	else size = 0;
+}
+QuadraticEquation::QuadraticEquation(double arg_a, double arg_b, double arg_c) :
+	a(arg_a), b(arg_b), c(arg_c), size(0)
+{
+	if (!a)throw "Invalid argument";
+	solveEquation(a,b,c);
 }
 QuadraticEquation::QuadraticEquation(const QuadraticEquation & qe) {
 	*this = qe;
@@ -63,26 +66,18 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	a = qe.a;
 	b = qe.b;
 	c = qe.c;
-	if(numOfSolution==2)delete[] solution;
-	else if(numOfSolution==1)delete solution;
-	numOfSolution = qe.numOfSolution;
-	if(numOfSolution)solution = new double[numOfSolution];
-	if (numOfSolution == 2) {
+	size = qe.size;
+	if (size == 2) {
 		solution[0] = qe.solution[0];
 		solution[1] = qe.solution[1];
 	}
-	else if (numOfSolution == 1)
+	else if (size == 1)
 	{
-		*solution = *qe.solution;
+		solution[0] = qe.solution[0];
 	}
-	else solution = nullptr;
-	
+
 }
-QuadraticEquation::~QuadraticEquation() {
-	if (numOfSolution==2)delete[] solution;
-	else if (numOfSolution==1)delete solution;
-	solution = nullptr;
-}
+QuadraticEquation::~QuadraticEquation() {}
 QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) {
 	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);
 }
@@ -90,13 +85,18 @@ QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation & qe) {
 	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);
 }
 void QuadraticEquation::setA(double a) {
-	this->a = a;
+	if (a)this->a = a;
+	else throw "Invalid argument";
+	solveEquation(this->a, b, c);
+
 }
 void QuadraticEquation::setB(double b) {
 	this->b = b;
+	solveEquation(a, this->b, c);
 }
 void QuadraticEquation::setC(double c) {
 	this->c = c;
+	solveEquation(a, b, this->c);
 }
 double QuadraticEquation::getA() {
 	return a;
@@ -108,10 +108,14 @@ double QuadraticEquation::getC() {
 	return c;
 }
 double* QuadraticEquation::getSolution() {
-	return solution;
+	if (size == 2)
+		return solution;
+	else if (size == 1)
+		return &solution[0];
+	else return nullptr;
 }
 size_t QuadraticEquation::getNumberOfSolutions() {
-	return numOfSolution;
+	return size;
 }
 bool QuadraticEquation::operator==(QuadraticEquation& qe) {
 	return a == qe.a && b == qe.b && c == qe.c;
@@ -133,7 +137,7 @@ int main() {
 
 	QuadraticEquation qe1(1,4,-5);
 	QuadraticEquation qe2(1,4,4);
-	QuadraticEquation arrQE[10];
+
 	QuadraticEquation* qe3 = new QuadraticEquation(1, -6, 9);
 	QuadraticEquation* qe4 = new QuadraticEquation(qe1);
 	QuadraticEquation* qe5=&qe2;
