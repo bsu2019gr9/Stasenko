@@ -24,18 +24,25 @@ public:
 		in >> qe.a >> qe.b >> qe.c;
 		return in;
 	}
-	QuadraticEquation operator+(const QuadraticEquation& qe);
-	QuadraticEquation operator-(const QuadraticEquation& qe);
+	QuadraticEquation operator+(const QuadraticEquation& qe) const;
+	QuadraticEquation operator-(const QuadraticEquation& qe) const;
+	QuadraticEquation operator*(const double number) const;
+	QuadraticEquation operator/(const double number) const;
+	void operator+=(const QuadraticEquation& qe);
+	void operator-=(const QuadraticEquation& qe);
+	void operator*=(const double number);
+	void operator/=(const double number);
 	void setA(double a);
 	void setB(double b);
 	void setC(double c);
-	double getA();
-	double getB();
-	double getC();
+	double getA() const;
+	double getB() const;
+	double getC() const;
 	double* getSolution();
-	size_t getNumberOfSolutions();
-	bool operator==(QuadraticEquation& qe);
-	bool operator!=(QuadraticEquation& qe);
+	size_t getNumberOfSolutions() const;
+	bool operator==(const QuadraticEquation& qe) const;
+	bool operator!=(const QuadraticEquation& qe) const;
+	
 
 };
 
@@ -71,14 +78,34 @@ QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
 	solution[1] = qe.solution[1];
 }
 QuadraticEquation::~QuadraticEquation() {}
-QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) {
+QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) const {
 	if (!(a + qe.a)) throw "Sum of quadratic equation is not quadratic equation";
 	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);
 }
-QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation & qe) {
+QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation & qe) const {
 	if (!(a - qe.a)) throw "Difference of quadratic equation is not quadratic equation";
 	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);
 }
+QuadraticEquation QuadraticEquation::operator*(const double number) const {
+	if (!a)throw "Invalid argument";
+	return QuadraticEquation(a * number, b * number, c * number);
+};
+QuadraticEquation QuadraticEquation::operator/(const double number) const {
+	if (!a)throw "Invalid argument";
+	return QuadraticEquation(a / number, b / number, c / number);
+};
+void QuadraticEquation::operator+=(const QuadraticEquation& qe) {
+	*this = *this + qe;
+};
+void QuadraticEquation::operator-=(const QuadraticEquation& qe) {
+	*this = *this - qe;
+};
+void QuadraticEquation::operator*=(const double number) {
+	*this = *this * number;
+};
+void QuadraticEquation::operator/=(const double number) {
+	*this = *this / number;
+};
 void QuadraticEquation::setA(double a) {
 	if (a)this->a = a;
 	else throw "Invalid argument";
@@ -93,29 +120,29 @@ void QuadraticEquation::setC(double c) {
 	this->c = c;
 	solveEquation(a, b, this->c);
 }
-double QuadraticEquation::getA() {
+double QuadraticEquation::getA() const {
 	return a;
 }
-double QuadraticEquation::getB() {
+double QuadraticEquation::getB() const{
 	return b;
 }
-double QuadraticEquation::getC() {
+double QuadraticEquation::getC() const {
 	return c;
 }
-double* QuadraticEquation::getSolution() {
-	if (size == 2)
+double* QuadraticEquation::getSolution()  {
+	if (size == 2) 
 		return solution;
 	else if (size == 1)
 		return &solution[0];
 	else return nullptr;
 }
-size_t QuadraticEquation::getNumberOfSolutions() {
+size_t QuadraticEquation::getNumberOfSolutions() const{
 	return size;
 }
-bool QuadraticEquation::operator==(QuadraticEquation& qe) {
+bool QuadraticEquation::operator==(const QuadraticEquation& qe) const {
 	return a == qe.a && b == qe.b && c == qe.c;
 }
-bool QuadraticEquation::operator!=(QuadraticEquation& qe) {
+bool QuadraticEquation::operator!=(const QuadraticEquation& qe) const{
 	return !(qe == *this);
 }
 
