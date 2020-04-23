@@ -6,26 +6,19 @@ class QuadraticEquation
 {
 private:
 	double a;
-	double b;  
+	double b;
 	double c;
 	size_t size;
 	double solution[2];
 	void solveEquation();
 public:
 	QuadraticEquation();
-	QuadraticEquation(double arg_a , double arg_b = 0, double arg_c = 0);
+	QuadraticEquation(double arg_a, double arg_b = 0, double arg_c = 0);
 	QuadraticEquation(const QuadraticEquation& qe);
 	QuadraticEquation& operator=(const QuadraticEquation& qe);
 	~QuadraticEquation();
-	friend ostream& operator<<(ostream& out, const QuadraticEquation& qe) {
-		out << qe.a << "x^2+" << qe.b << "x+" << qe.c<<"\n";
-		return out;
-	}
-	friend istream& operator>>(istream& in,  QuadraticEquation& qe) {
-		in >> qe.a >> qe.b >> qe.c;
-		qe.solveEquation();
-		return in;
-	}
+	friend ostream& operator<<(ostream& out, const QuadraticEquation& qe);
+	friend istream& operator>>(istream& in, QuadraticEquation& qe);
 	QuadraticEquation operator+(const QuadraticEquation& qe) const;
 	QuadraticEquation operator-(const QuadraticEquation& qe) const;
 	QuadraticEquation operator*(const double number) const;
@@ -37,6 +30,7 @@ public:
 	void setA(double a);
 	void setB(double b);
 	void setC(double c);
+	void setABC(double a, double b, double c);
 	double getA() const;
 	double getB() const;
 	double getC() const;
@@ -48,9 +42,8 @@ public:
 	friend bool operator>=(const QuadraticEquation& qe1, const QuadraticEquation& qe2);
 	friend bool operator<(const QuadraticEquation& qe1, const QuadraticEquation& qe2);
 	friend bool operator<=(const QuadraticEquation& qe1, const QuadraticEquation& qe2);
-	friend void swap( QuadraticEquation& qe1, QuadraticEquation& qe2);
+	friend void swap(QuadraticEquation& qe1, QuadraticEquation& qe2);
 };
-
 void QuadraticEquation::solveEquation() {
 	double D = b * b - 4 * a * c;
 	if (D > 0) {
@@ -65,7 +58,7 @@ void QuadraticEquation::solveEquation() {
 	}
 	else size = 0;
 }
-QuadraticEquation::QuadraticEquation():a(1),b(0),c(0) {
+QuadraticEquation::QuadraticEquation() :a(1), b(0), c(0) {
 	solveEquation();
 }
 QuadraticEquation::QuadraticEquation(double arg_a, double arg_b, double arg_c) :
@@ -74,23 +67,24 @@ QuadraticEquation::QuadraticEquation(double arg_a, double arg_b, double arg_c) :
 	if (!a)throw "Invalid argument";
 	solveEquation();
 }
-QuadraticEquation::QuadraticEquation(const QuadraticEquation & qe) {
+QuadraticEquation::QuadraticEquation(const QuadraticEquation& qe) {
 	*this = qe;
 }
-QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation & qe) {
+QuadraticEquation& QuadraticEquation::operator=(const QuadraticEquation& qe) {
 	a = qe.a;
 	b = qe.b;
 	c = qe.c;
 	size = qe.size;
 	solution[0] = qe.solution[0];
 	solution[1] = qe.solution[1];
+	return *this;
 }
 QuadraticEquation::~QuadraticEquation() {}
-QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation & qe) const {
+QuadraticEquation QuadraticEquation::operator+(const QuadraticEquation& qe) const {
 	if (!(a + qe.a)) throw "Sum of quadratic equation is not quadratic equation";
 	return QuadraticEquation(a + qe.a, b + qe.b, c + qe.c);
 }
-QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation & qe) const {
+QuadraticEquation QuadraticEquation::operator-(const QuadraticEquation& qe) const {
 	if (!(a - qe.a)) throw "Difference of quadratic equation is not quadratic equation";
 	return QuadraticEquation(a - qe.a, b - qe.b, c - qe.c);
 }
@@ -115,8 +109,8 @@ void QuadraticEquation::operator/=(const double number) {
 	*this = *this / number;
 };
 void QuadraticEquation::setA(double a) {
-	if (a)this->a = a;
-	else throw "Invalid argument";
+	if (!a)throw "Invalid argument";
+	this->a = a;
 	solveEquation();
 
 }
@@ -128,64 +122,80 @@ void QuadraticEquation::setC(double c) {
 	this->c = c;
 	solveEquation();
 }
+void QuadraticEquation::setABC(double a, double b, double c) {
+	if (!a)throw "Invalid argument";
+	this->a = a;
+	this->b = b;
+	this->c = c;
+	solveEquation();
+}
+
 double QuadraticEquation::getA() const {
 	return a;
 }
-double QuadraticEquation::getB() const{
+double QuadraticEquation::getB() const {
 	return b;
 }
 double QuadraticEquation::getC() const {
 	return c;
 }
-double* QuadraticEquation::getSolution()  {
-	if (size == 2) 
+double* QuadraticEquation::getSolution() {
+	if (size == 2)
 		return solution;
 	else if (size == 1)
 		return &solution[0];
 	else return nullptr;
 }
-size_t QuadraticEquation::getNumberOfSolutions() const{
+size_t QuadraticEquation::getNumberOfSolutions() const {
 	return size;
 }
 bool QuadraticEquation::operator==(const QuadraticEquation& qe) const {
 	return a == qe.a && b == qe.b && c == qe.c;
 }
-bool QuadraticEquation::operator!=(const QuadraticEquation& qe) const{
+bool QuadraticEquation::operator!=(const QuadraticEquation& qe) const {
 	return !(qe == *this);
 }
+ostream& operator<<(ostream& out, const QuadraticEquation& qe)
+{
+	out << qe.a << "x^2+" << qe.b << "x+" << qe.c << "\n";
+	return out;
+}
 
-QuadraticEquation fff1(QuadraticEquation qe) {
-	return qe;
+istream& operator>>(istream& in, QuadraticEquation& qe)
+{
+	in >> qe.a >> qe.b >> qe.c;
+	qe.solveEquation();
+	return in;
 }
-QuadraticEquation* fff2(QuadraticEquation* qe) {
-	return qe;
-}
-QuadraticEquation fff3(QuadraticEquation& qe) {
-	return qe;
-}
+
 bool operator>(const QuadraticEquation& qe1, const QuadraticEquation& qe2)
 {
-	return qe1.a>qe2.a && qe1.b>qe2.b && qe1.c>qe2.c;
+	return qe1.a > qe2.a;
 }
+
 bool operator>=(const QuadraticEquation& qe1, const QuadraticEquation& qe2)
 {
-	return qe1.a >= qe2.a&& qe1.b >= qe2.b&& qe1.c >= qe2.c;
+		return qe1.a >= qe2.a ;
 }
+
 bool operator<(const QuadraticEquation& qe1, const QuadraticEquation& qe2)
 {
-	return !(qe1>=qe2);
+		return !(qe1 >= qe2);
 }
-bool operator<=(const QuadraticEquation& qe1, const QuadraticEquation& qe2)
-{
-	return !(qe1 > qe2);
-}
-void swap( QuadraticEquation& qe1,  QuadraticEquation& qe2)
-{
-	swap(qe1.a,qe2.a);
-	swap(qe1.b,qe2.b);
-	swap(qe1.c,qe2.c);
 
+bool operator<=(const QuadraticEquation& qe1, const QuadraticEquation& qe2){
+		return !(qe1 > qe2);
 }
+
+void swap(QuadraticEquation& qe1, QuadraticEquation& qe2)
+{
+	swap(qe1.a, qe2.a);
+	swap(qe1.b, qe2.b);
+	swap(qe1.c, qe2.c);
+	swap(qe1.solution, qe2.solution);
+	swap(qe1.size, qe2.size);
+}
+
 int main() {
 
 	QuadraticEquation qe1(1,4,-5);
@@ -201,7 +211,7 @@ int main() {
 	double* sol = qe1.getSolution();
 	int n = qe1.getNumberOfSolutions();
 	for (int i = 0;i < n;i++)
-			cout << sol[i];  //вот это бы в функцию fff
+			cout << ffd(sol[i]); 
 	sol = qe6.getSolution();
 	cin >> qe1;
 	cout << fff1(qe1);
