@@ -5,6 +5,18 @@
 using namespace std;
 
 typedef  QuadraticEquation T;
+T* createArray(const size_t size) {
+	try {
+		return new T[size];
+	}
+	catch (...) {
+		cout << "No memory";
+	}
+}
+void freeMemory(T arrQE[]) {
+
+	if (arrQE)delete[] arrQE;
+}
 void sort(T arrQE[],const size_t size) {
 	for(size_t i=1;i<size;i++)
 		for (size_t j = i;j > 0 && arrQE[j] < arrQE[j - 1];j--) {
@@ -80,8 +92,9 @@ int main() {
 	sort(qe, size);//сортировка по старшей степени
 	outputArray(qe, size);
 	outputArray(qe, size,fout);
-	QuadraticEquation* qe1 = new QuadraticEquation[size];
+	QuadraticEquation* qe1 = createArray(size);
 	initArray(qe1,size);
 	outputArray(qe1, size);
+	freeMemory(qe1);
 	return 0;
 }
