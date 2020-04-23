@@ -75,7 +75,7 @@ QuadraticEquation countSum(T arrQE[], const size_t size) {
 	for (size_t i = 0; i < size; i++) {
 		if (arrQE[i].getNumberOfSolutions())sum+=arrQE[i];
 	}
-	if (sum.getA() != 1)sum.setA(sum.getA() - 1);
+	if (sum.getA() != 1)sum.setA(sum.getA() - 1);//по конструктор по умолчанию создает уравнение x^2 и при подсчете суммы получается лишний x^2
 	return sum;
 }
 int main() {
