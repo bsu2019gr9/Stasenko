@@ -23,7 +23,7 @@ int main() {
 	fout.write((char*)&buf, 28);   
 	
 	c1.r=0,c1.g=0,c1.b=0;
-	c2.r=255,c2.g=200,c2.b=100;
+	c2.r=0,c2.g=200,c2.b=100;
 	double stepR = (c2.r - c1.r)*1.0/(w*h);
 	double stepG = (c2.g - c1.g)*1.0/(w*h);
 	double stepB = (c2.b - c1.b)*1.0/(w*h);
@@ -32,15 +32,13 @@ int main() {
 		for (int j = 1;j <= w;j++) {
 			fout.write((char*)&c1, 3);
 			cR += stepR;
-			
+			cB += stepB;
+			cG += stepG;
 			c1.r = cR;
-			
+			c1.g = cG;
+			c1.b = cB;
 
 		}
-		cB += stepB;
-		cG += stepG;
-		c1.g = cG;
-		c1.b = cB;
 	}
 	fin.close();
 	fout.close();
