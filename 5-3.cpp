@@ -22,8 +22,8 @@ int main() {
 	fin.read((char*)&buf, 28);   
 	fout.write((char*)&buf, 28);   
 	
-	c1.r=0,c1.g=0,c1.b=0;//а если я захочу от белого в черный? Т.е. с1>с2???????
-	c2.r=0,c2.g=200,c2.b=100;
+	c1.r=10,c1.g=255,c1.b=100;
+	c2.r=255,c2.g=10,c2.b=200;
 	double stepR = (c2.r - c1.r)*1.0/(w*h);
 	double stepG = (c2.g - c1.g)*1.0/(w*h);
 	double stepB = (c2.b - c1.b)*1.0/(w*h);
