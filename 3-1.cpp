@@ -36,11 +36,10 @@ void Task(char*& str, char substr[]) {
 	word = strtok(str, " ");
 	while (word) {
 		int i = 0;
-		while (word[i]) {
+		for (;i < strlen(word);i++) {
 			//проверка все ли буквы в слове разные
 			if (letters[word[i] - 'a'])  break;
 			letters[word[i] - 'a'] = true;
-			++i;
 		}
 		if (i == strlen(word)) {
 			cout << word << "\n";
