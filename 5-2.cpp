@@ -13,67 +13,67 @@ T* createArray(const size_t size) {
 		cout << "No memory";
 	}
 }
-void freeMemory(T arrQE[]) {
+void arrfreeMemory(T arr[]) {
 
-	if (arrQE)delete[] arrQE;
+	if (arr)delete[] arr;
 }
-void sort(T arrQE[],const size_t size) {
+void sort(T arr[],const size_t size) {
 	for(size_t i=1;i<size;i++)
-		for (size_t j = i;j > 0 && arrQE[j] < arrQE[j - 1];j--) {
-			swap(arrQE[j],arrQE[j - 1]);
+		for (size_t j = i;j > 0 && arr[j] < arr[j - 1];j--) {
+			swap(arr[j],arr[j - 1]);
 		}
 }
-T max(T arrQE[], const size_t size) {
+T max(T arr[], const size_t size) {
 
-	T max = arrQE[0];
+	T max = arr[0];
 	for (size_t i = 0;i < size;i++)
-		if (max < arrQE[i])max = arrQE[i];
+		if (max < arr[i])max = arr[i];
 	return max;
 }
-T min(T arrQE[], const size_t size) {
+T min(T arr[], const size_t size) {
 
-	QuadraticEquation min = arrQE[0];
+	QuadraticEquation min = arr[0];
 	for (size_t i = 0;i < size;i++)
-		if (min > arrQE[i])min = arrQE[i];
+		if (min > arr[i])min = arr[i];
 	return min;
 }
-T findIndexOf(T arrQE[], const size_t size, T qe) {
+T findIndexOf(T arr[], const size_t size, T qe) {
 
 	for (size_t i = 0;i < size;i++)
-		if (qe == arrQE[i])return i;
+		if (qe == arr[i])return i;
 	return -1;
 }
-void inputArray(T arrQE[], const size_t size,istream& in=cin) {
+void inputArray(T arr[], const size_t size,istream& in=cin) {
 	for (size_t i = 0;i < size;i++)
-		in >> arrQE[i];
+		in >> arr[i];
 
 }
-void outputArray(T arrQE[], const size_t size, ostream& out=cout) {
+void outputArray(T arr[], const size_t size, ostream& out=cout) {
 	for (size_t i = 0;i < size;i++)
-		out << arrQE[i];
+		out << arr[i];
 
 }
-void initArray(T arrQE[], const size_t size,int A=-10, int B=10 )
+void initArray(T arr[], const size_t size,int A=-10, int B=10 )
 {
 	srand(time(NULL));
 	if (A > B)swap(A, B);
 	double k1 = (B - A) * 1.0 / (RAND_MAX);
 	for (size_t i = 0; i < size; i++) {
-		arrQE[i].setABC (k1 * rand() + A, k1 * rand() + A, k1 * rand() + A);
+		arr[i].setABC (k1 * rand() + A, k1 * rand() + A, k1 * rand() + A);
 	}
 }
-size_t howManyQEhaveSolution(T arrQE[], const size_t size) {
+size_t howManyQEhaveSolution(T arr[], const size_t size) {
 
 	size_t count = 0;
 	for (size_t i = 0; i < size; i++){
-		if (arrQE[i].getNumberOfSolutions())count++;
+		if (arr[i].getNumberOfSolutions())count++;
 	}
 	return count;
 }
-QuadraticEquation countSum(T arrQE[], const size_t size) {
+QuadraticEquation countSum(T arr[], const size_t size) {
 	QuadraticEquation sum;
 	for (size_t i = 0; i < size; i++) {
-		if (arrQE[i].getNumberOfSolutions())sum+=arrQE[i];
+		if (arr[i].getNumberOfSolutions())sum+=arr[i];
 	}
 	sum.setA(sum.getA() - 1);// конструктор по умолчанию создает уравнение x^2 и при подсчете суммы получается лишний x^2
 	return sum;
